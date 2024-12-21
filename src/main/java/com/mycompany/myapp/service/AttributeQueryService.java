@@ -6,6 +6,7 @@ import com.mycompany.myapp.repository.AttributeRepository;
 import com.mycompany.myapp.service.criteria.AttributeCriteria;
 import com.mycompany.myapp.service.dto.AttributeDTO;
 import com.mycompany.myapp.service.mapper.AttributeMapper;
+import jakarta.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -84,6 +85,13 @@ public class AttributeQueryService extends QueryService<Attribute> {
             }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Attribute_.name));
+            }
+            if (criteria.getAttributeValueId() != null) {
+                specification = specification.and(
+                    buildSpecification(criteria.getAttributeValueId(), root ->
+                        root.join(Attribute_.attributeValues, JoinType.LEFT).get(AttributeValue_.id)
+                    )
+                );
             }
         }
         return specification;

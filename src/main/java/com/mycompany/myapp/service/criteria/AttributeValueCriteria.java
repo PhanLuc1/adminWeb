@@ -8,46 +8,46 @@ import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
 
 /**
- * Criteria class for the {@link com.mycompany.myapp.domain.Attribute} entity. This class is used
- * in {@link com.mycompany.myapp.web.rest.AttributeResource} to receive all the possible filtering options from
+ * Criteria class for the {@link com.mycompany.myapp.domain.AttributeValue} entity. This class is used
+ * in {@link com.mycompany.myapp.web.rest.AttributeValueResource} to receive all the possible filtering options from
  * the Http GET request parameters.
  * For example the following could be a valid request:
- * {@code /attributes?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
+ * {@code /attribute-values?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
 @ParameterObject
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class AttributeCriteria implements Serializable, Criteria {
+public class AttributeValueCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
 
-    private InstantFilter createAt;
+    private InstantFilter creatAt;
 
     private InstantFilter updateAt;
 
     private StringFilter name;
 
-    private LongFilter attributeValueId;
+    private LongFilter attributeId;
 
     private Boolean distinct;
 
-    public AttributeCriteria() {}
+    public AttributeValueCriteria() {}
 
-    public AttributeCriteria(AttributeCriteria other) {
+    public AttributeValueCriteria(AttributeValueCriteria other) {
         this.id = other.optionalId().map(LongFilter::copy).orElse(null);
-        this.createAt = other.optionalCreateAt().map(InstantFilter::copy).orElse(null);
+        this.creatAt = other.optionalCreatAt().map(InstantFilter::copy).orElse(null);
         this.updateAt = other.optionalUpdateAt().map(InstantFilter::copy).orElse(null);
         this.name = other.optionalName().map(StringFilter::copy).orElse(null);
-        this.attributeValueId = other.optionalAttributeValueId().map(LongFilter::copy).orElse(null);
+        this.attributeId = other.optionalAttributeId().map(LongFilter::copy).orElse(null);
         this.distinct = other.distinct;
     }
 
     @Override
-    public AttributeCriteria copy() {
-        return new AttributeCriteria(this);
+    public AttributeValueCriteria copy() {
+        return new AttributeValueCriteria(this);
     }
 
     public LongFilter getId() {
@@ -69,23 +69,23 @@ public class AttributeCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public InstantFilter getCreateAt() {
-        return createAt;
+    public InstantFilter getCreatAt() {
+        return creatAt;
     }
 
-    public Optional<InstantFilter> optionalCreateAt() {
-        return Optional.ofNullable(createAt);
+    public Optional<InstantFilter> optionalCreatAt() {
+        return Optional.ofNullable(creatAt);
     }
 
-    public InstantFilter createAt() {
-        if (createAt == null) {
-            setCreateAt(new InstantFilter());
+    public InstantFilter creatAt() {
+        if (creatAt == null) {
+            setCreatAt(new InstantFilter());
         }
-        return createAt;
+        return creatAt;
     }
 
-    public void setCreateAt(InstantFilter createAt) {
-        this.createAt = createAt;
+    public void setCreatAt(InstantFilter creatAt) {
+        this.creatAt = creatAt;
     }
 
     public InstantFilter getUpdateAt() {
@@ -126,23 +126,23 @@ public class AttributeCriteria implements Serializable, Criteria {
         this.name = name;
     }
 
-    public LongFilter getAttributeValueId() {
-        return attributeValueId;
+    public LongFilter getAttributeId() {
+        return attributeId;
     }
 
-    public Optional<LongFilter> optionalAttributeValueId() {
-        return Optional.ofNullable(attributeValueId);
+    public Optional<LongFilter> optionalAttributeId() {
+        return Optional.ofNullable(attributeId);
     }
 
-    public LongFilter attributeValueId() {
-        if (attributeValueId == null) {
-            setAttributeValueId(new LongFilter());
+    public LongFilter attributeId() {
+        if (attributeId == null) {
+            setAttributeId(new LongFilter());
         }
-        return attributeValueId;
+        return attributeId;
     }
 
-    public void setAttributeValueId(LongFilter attributeValueId) {
-        this.attributeValueId = attributeValueId;
+    public void setAttributeId(LongFilter attributeId) {
+        this.attributeId = attributeId;
     }
 
     public Boolean getDistinct() {
@@ -172,31 +172,31 @@ public class AttributeCriteria implements Serializable, Criteria {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final AttributeCriteria that = (AttributeCriteria) o;
+        final AttributeValueCriteria that = (AttributeValueCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(createAt, that.createAt) &&
+            Objects.equals(creatAt, that.creatAt) &&
             Objects.equals(updateAt, that.updateAt) &&
             Objects.equals(name, that.name) &&
-            Objects.equals(attributeValueId, that.attributeValueId) &&
+            Objects.equals(attributeId, that.attributeId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createAt, updateAt, name, attributeValueId, distinct);
+        return Objects.hash(id, creatAt, updateAt, name, attributeId, distinct);
     }
 
     // prettier-ignore
     @Override
     public String toString() {
-        return "AttributeCriteria{" +
+        return "AttributeValueCriteria{" +
             optionalId().map(f -> "id=" + f + ", ").orElse("") +
-            optionalCreateAt().map(f -> "createAt=" + f + ", ").orElse("") +
+            optionalCreatAt().map(f -> "creatAt=" + f + ", ").orElse("") +
             optionalUpdateAt().map(f -> "updateAt=" + f + ", ").orElse("") +
             optionalName().map(f -> "name=" + f + ", ").orElse("") +
-            optionalAttributeValueId().map(f -> "attributeValueId=" + f + ", ").orElse("") +
+            optionalAttributeId().map(f -> "attributeId=" + f + ", ").orElse("") +
             optionalDistinct().map(f -> "distinct=" + f + ", ").orElse("") +
         "}";
     }

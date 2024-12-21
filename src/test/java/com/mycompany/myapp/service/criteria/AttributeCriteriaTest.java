@@ -78,6 +78,7 @@ class AttributeCriteriaTest {
         attributeCriteria.createAt();
         attributeCriteria.updateAt();
         attributeCriteria.name();
+        attributeCriteria.attributeValueId();
         attributeCriteria.distinct();
     }
 
@@ -88,6 +89,7 @@ class AttributeCriteriaTest {
                 condition.apply(criteria.getCreateAt()) &&
                 condition.apply(criteria.getUpdateAt()) &&
                 condition.apply(criteria.getName()) &&
+                condition.apply(criteria.getAttributeValueId()) &&
                 condition.apply(criteria.getDistinct()),
             "every filter matches"
         );
@@ -100,6 +102,7 @@ class AttributeCriteriaTest {
                 condition.apply(criteria.getCreateAt(), copy.getCreateAt()) &&
                 condition.apply(criteria.getUpdateAt(), copy.getUpdateAt()) &&
                 condition.apply(criteria.getName(), copy.getName()) &&
+                condition.apply(criteria.getAttributeValueId(), copy.getAttributeValueId()) &&
                 condition.apply(criteria.getDistinct(), copy.getDistinct()),
             "every filter matches"
         );

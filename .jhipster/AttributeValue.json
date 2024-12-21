@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20241221004152"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "creatAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "AttributeValue",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "attribute",
+      "otherEntityRelationshipName": "attributeValue",
+      "relationshipName": "attribute",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

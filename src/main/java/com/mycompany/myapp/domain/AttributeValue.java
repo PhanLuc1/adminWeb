@@ -4,16 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * A Attribute.
+ * A AttributeValue.
  */
 @Entity
-@Table(name = "attribute")
+@Table(name = "attribute_value")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Attribute implements Serializable {
+public class AttributeValue implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,8 +20,8 @@ public class Attribute implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "create_at")
-    private Instant createAt;
+    @Column(name = "creat_at")
+    private Instant creatAt;
 
     @Column(name = "update_at")
     private Instant updateAt;
@@ -31,9 +29,9 @@ public class Attribute implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attribute")
-    @JsonIgnoreProperties(value = { "attribute" }, allowSetters = true)
-    private Set<AttributeValue> attributeValues = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "attributeValues" }, allowSetters = true)
+    private Attribute attribute;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -41,7 +39,7 @@ public class Attribute implements Serializable {
         return this.id;
     }
 
-    public Attribute id(Long id) {
+    public AttributeValue id(Long id) {
         this.setId(id);
         return this;
     }
@@ -50,24 +48,24 @@ public class Attribute implements Serializable {
         this.id = id;
     }
 
-    public Instant getCreateAt() {
-        return this.createAt;
+    public Instant getCreatAt() {
+        return this.creatAt;
     }
 
-    public Attribute createAt(Instant createAt) {
-        this.setCreateAt(createAt);
+    public AttributeValue creatAt(Instant creatAt) {
+        this.setCreatAt(creatAt);
         return this;
     }
 
-    public void setCreateAt(Instant createAt) {
-        this.createAt = createAt;
+    public void setCreatAt(Instant creatAt) {
+        this.creatAt = creatAt;
     }
 
     public Instant getUpdateAt() {
         return this.updateAt;
     }
 
-    public Attribute updateAt(Instant updateAt) {
+    public AttributeValue updateAt(Instant updateAt) {
         this.setUpdateAt(updateAt);
         return this;
     }
@@ -80,7 +78,7 @@ public class Attribute implements Serializable {
         return this.name;
     }
 
-    public Attribute name(String name) {
+    public AttributeValue name(String name) {
         this.setName(name);
         return this;
     }
@@ -89,34 +87,16 @@ public class Attribute implements Serializable {
         this.name = name;
     }
 
-    public Set<AttributeValue> getAttributeValues() {
-        return this.attributeValues;
+    public Attribute getAttribute() {
+        return this.attribute;
     }
 
-    public void setAttributeValues(Set<AttributeValue> attributeValues) {
-        if (this.attributeValues != null) {
-            this.attributeValues.forEach(i -> i.setAttribute(null));
-        }
-        if (attributeValues != null) {
-            attributeValues.forEach(i -> i.setAttribute(this));
-        }
-        this.attributeValues = attributeValues;
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
 
-    public Attribute attributeValues(Set<AttributeValue> attributeValues) {
-        this.setAttributeValues(attributeValues);
-        return this;
-    }
-
-    public Attribute addAttributeValue(AttributeValue attributeValue) {
-        this.attributeValues.add(attributeValue);
-        attributeValue.setAttribute(this);
-        return this;
-    }
-
-    public Attribute removeAttributeValue(AttributeValue attributeValue) {
-        this.attributeValues.remove(attributeValue);
-        attributeValue.setAttribute(null);
+    public AttributeValue attribute(Attribute attribute) {
+        this.setAttribute(attribute);
         return this;
     }
 
@@ -127,10 +107,10 @@ public class Attribute implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Attribute)) {
+        if (!(o instanceof AttributeValue)) {
             return false;
         }
-        return getId() != null && getId().equals(((Attribute) o).getId());
+        return getId() != null && getId().equals(((AttributeValue) o).getId());
     }
 
     @Override
@@ -142,9 +122,9 @@ public class Attribute implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Attribute{" +
+        return "AttributeValue{" +
             "id=" + getId() +
-            ", createAt='" + getCreateAt() + "'" +
+            ", creatAt='" + getCreatAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             ", name='" + getName() + "'" +
             "}";
