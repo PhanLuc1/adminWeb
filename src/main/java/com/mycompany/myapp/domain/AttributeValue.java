@@ -29,7 +29,7 @@ public class AttributeValue implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "attributeValues" }, allowSetters = true)
     private Attribute attribute;
 

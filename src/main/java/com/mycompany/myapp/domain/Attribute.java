@@ -31,7 +31,7 @@ public class Attribute implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "attribute")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attribute")
     @JsonIgnoreProperties(value = { "attribute" }, allowSetters = true)
     private Set<AttributeValue> attributeValues = new HashSet<>();
 
