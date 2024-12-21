@@ -11,11 +11,15 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface AttributeValueMapper extends EntityMapper<AttributeValueDTO, AttributeValue> {
-    @Mapping(target = "attribute", source = "attribute", qualifiedByName = "attributeId")
+    @Mapping(target = "attribute", source = "attribute") // Ánh xạ toàn bộ đối tượng Attribute
     AttributeValueDTO toDto(AttributeValue s);
 
+    // Ánh xạ đầy đủ các thuộc tính của Attribute
     @Named("attributeId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "createAt", source = "createAt")
+    @Mapping(target = "updateAt", source = "updateAt")
     AttributeDTO toDtoAttributeId(Attribute attribute);
 }
