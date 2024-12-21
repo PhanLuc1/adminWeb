@@ -93,6 +93,13 @@ public class AttributeValueQueryService extends QueryService<AttributeValue> {
                     )
                 );
             }
+            if (criteria.getProductVariantId() != null) {
+                specification = specification.and(
+                    buildSpecification(criteria.getProductVariantId(), root ->
+                        root.join(AttributeValue_.productVariants, JoinType.LEFT).get(ProductVariant_.id)
+                    )
+                );
+            }
         }
         return specification;
     }

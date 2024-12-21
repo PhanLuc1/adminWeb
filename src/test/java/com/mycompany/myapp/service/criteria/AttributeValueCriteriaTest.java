@@ -79,6 +79,7 @@ class AttributeValueCriteriaTest {
         attributeValueCriteria.updateAt();
         attributeValueCriteria.name();
         attributeValueCriteria.attributeId();
+        attributeValueCriteria.productVariantId();
         attributeValueCriteria.distinct();
     }
 
@@ -90,6 +91,7 @@ class AttributeValueCriteriaTest {
                 condition.apply(criteria.getUpdateAt()) &&
                 condition.apply(criteria.getName()) &&
                 condition.apply(criteria.getAttributeId()) &&
+                condition.apply(criteria.getProductVariantId()) &&
                 condition.apply(criteria.getDistinct()),
             "every filter matches"
         );
@@ -106,6 +108,7 @@ class AttributeValueCriteriaTest {
                 condition.apply(criteria.getUpdateAt(), copy.getUpdateAt()) &&
                 condition.apply(criteria.getName(), copy.getName()) &&
                 condition.apply(criteria.getAttributeId(), copy.getAttributeId()) &&
+                condition.apply(criteria.getProductVariantId(), copy.getProductVariantId()) &&
                 condition.apply(criteria.getDistinct(), copy.getDistinct()),
             "every filter matches"
         );

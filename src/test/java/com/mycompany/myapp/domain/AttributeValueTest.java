@@ -2,9 +2,12 @@ package com.mycompany.myapp.domain;
 
 import static com.mycompany.myapp.domain.AttributeTestSamples.*;
 import static com.mycompany.myapp.domain.AttributeValueTestSamples.*;
+import static com.mycompany.myapp.domain.ProductVariantTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.mycompany.myapp.web.rest.TestUtil;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class AttributeValueTest {
@@ -33,5 +36,27 @@ class AttributeValueTest {
 
         attributeValue.attribute(null);
         assertThat(attributeValue.getAttribute()).isNull();
+    }
+
+    @Test
+    void productVariantTest() {
+        AttributeValue attributeValue = getAttributeValueRandomSampleGenerator();
+        ProductVariant productVariantBack = getProductVariantRandomSampleGenerator();
+
+        attributeValue.addProductVariant(productVariantBack);
+        assertThat(attributeValue.getProductVariants()).containsOnly(productVariantBack);
+        assertThat(productVariantBack.getAttributeValues()).containsOnly(attributeValue);
+
+        attributeValue.removeProductVariant(productVariantBack);
+        assertThat(attributeValue.getProductVariants()).doesNotContain(productVariantBack);
+        assertThat(productVariantBack.getAttributeValues()).doesNotContain(attributeValue);
+
+        attributeValue.productVariants(new HashSet<>(Set.of(productVariantBack)));
+        assertThat(attributeValue.getProductVariants()).containsOnly(productVariantBack);
+        assertThat(productVariantBack.getAttributeValues()).containsOnly(attributeValue);
+
+        attributeValue.setProductVariants(new HashSet<>());
+        assertThat(attributeValue.getProductVariants()).doesNotContain(productVariantBack);
+        assertThat(productVariantBack.getAttributeValues()).doesNotContain(attributeValue);
     }
 }

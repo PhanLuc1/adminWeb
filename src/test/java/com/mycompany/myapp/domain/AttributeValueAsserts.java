@@ -61,6 +61,7 @@ public class AttributeValueAsserts {
     public static void assertAttributeValueUpdatableRelationshipsEquals(AttributeValue expected, AttributeValue actual) {
         assertThat(expected)
             .as("Verify AttributeValue relationships")
-            .satisfies(e -> assertThat(e.getAttribute()).as("check attribute").isEqualTo(actual.getAttribute()));
+            .satisfies(e -> assertThat(e.getAttribute()).as("check attribute").isEqualTo(actual.getAttribute()))
+            .satisfies(e -> assertThat(e.getProductVariants()).as("check productVariants").isEqualTo(actual.getProductVariants()));
     }
 }

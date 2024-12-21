@@ -458,7 +458,7 @@ class AttributeResourceIT {
         Attribute partialUpdatedAttribute = new Attribute();
         partialUpdatedAttribute.setId(attribute.getId());
 
-        partialUpdatedAttribute.updateAt(UPDATED_UPDATE_AT);
+        partialUpdatedAttribute.createAt(UPDATED_CREATE_AT).updateAt(UPDATED_UPDATE_AT);
 
         restAttributeMockMvc
             .perform(

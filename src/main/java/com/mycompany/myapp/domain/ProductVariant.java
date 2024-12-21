@@ -3,17 +3,18 @@ package com.mycompany.myapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Attribute.
+ * A ProductVariant.
  */
 @Entity
-@Table(name = "attribute")
+@Table(name = "product_variant")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Attribute implements Serializable {
+public class ProductVariant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,16 +23,21 @@ public class Attribute implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "create_at")
-    private Instant createAt;
+    @Column(name = "creat_at")
+    private Instant creatAt;
 
     @Column(name = "update_at")
     private Instant updateAt;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "price", precision = 21, scale = 2)
+    private BigDecimal price;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attribute")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_product_variant__attribute_value",
+        joinColumns = @JoinColumn(name = "product_variant_id"),
+        inverseJoinColumns = @JoinColumn(name = "attribute_value_id")
+    )
     @JsonIgnoreProperties(value = { "attribute", "productVariants" }, allowSetters = true)
     private Set<AttributeValue> attributeValues = new HashSet<>();
 
@@ -41,7 +47,7 @@ public class Attribute implements Serializable {
         return this.id;
     }
 
-    public Attribute id(Long id) {
+    public ProductVariant id(Long id) {
         this.setId(id);
         return this;
     }
@@ -50,24 +56,24 @@ public class Attribute implements Serializable {
         this.id = id;
     }
 
-    public Instant getCreateAt() {
-        return this.createAt;
+    public Instant getCreatAt() {
+        return this.creatAt;
     }
 
-    public Attribute createAt(Instant createAt) {
-        this.setCreateAt(createAt);
+    public ProductVariant creatAt(Instant creatAt) {
+        this.setCreatAt(creatAt);
         return this;
     }
 
-    public void setCreateAt(Instant createAt) {
-        this.createAt = createAt;
+    public void setCreatAt(Instant creatAt) {
+        this.creatAt = creatAt;
     }
 
     public Instant getUpdateAt() {
         return this.updateAt;
     }
 
-    public Attribute updateAt(Instant updateAt) {
+    public ProductVariant updateAt(Instant updateAt) {
         this.setUpdateAt(updateAt);
         return this;
     }
@@ -76,17 +82,17 @@ public class Attribute implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public String getName() {
-        return this.name;
+    public BigDecimal getPrice() {
+        return this.price;
     }
 
-    public Attribute name(String name) {
-        this.setName(name);
+    public ProductVariant price(BigDecimal price) {
+        this.setPrice(price);
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Set<AttributeValue> getAttributeValues() {
@@ -94,29 +100,21 @@ public class Attribute implements Serializable {
     }
 
     public void setAttributeValues(Set<AttributeValue> attributeValues) {
-        if (this.attributeValues != null) {
-            this.attributeValues.forEach(i -> i.setAttribute(null));
-        }
-        if (attributeValues != null) {
-            attributeValues.forEach(i -> i.setAttribute(this));
-        }
         this.attributeValues = attributeValues;
     }
 
-    public Attribute attributeValues(Set<AttributeValue> attributeValues) {
+    public ProductVariant attributeValues(Set<AttributeValue> attributeValues) {
         this.setAttributeValues(attributeValues);
         return this;
     }
 
-    public Attribute addAttributeValue(AttributeValue attributeValue) {
+    public ProductVariant addAttributeValue(AttributeValue attributeValue) {
         this.attributeValues.add(attributeValue);
-        attributeValue.setAttribute(this);
         return this;
     }
 
-    public Attribute removeAttributeValue(AttributeValue attributeValue) {
+    public ProductVariant removeAttributeValue(AttributeValue attributeValue) {
         this.attributeValues.remove(attributeValue);
-        attributeValue.setAttribute(null);
         return this;
     }
 
@@ -127,10 +125,10 @@ public class Attribute implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Attribute)) {
+        if (!(o instanceof ProductVariant)) {
             return false;
         }
-        return getId() != null && getId().equals(((Attribute) o).getId());
+        return getId() != null && getId().equals(((ProductVariant) o).getId());
     }
 
     @Override
@@ -142,11 +140,11 @@ public class Attribute implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Attribute{" +
+        return "ProductVariant{" +
             "id=" + getId() +
-            ", createAt='" + getCreateAt() + "'" +
+            ", creatAt='" + getCreatAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
-            ", name='" + getName() + "'" +
+            ", price=" + getPrice() +
             "}";
     }
 }

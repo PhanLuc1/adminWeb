@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Attribute;
 import com.mycompany.myapp.domain.AttributeValue;
+import com.mycompany.myapp.domain.ProductVariant;
 import com.mycompany.myapp.repository.AttributeValueRepository;
 import com.mycompany.myapp.service.dto.AttributeValueDTO;
 import com.mycompany.myapp.service.mapper.AttributeValueMapper;
@@ -327,6 +328,28 @@ class AttributeValueResourceIT {
         defaultAttributeValueShouldNotBeFound("attributeId.equals=" + (attributeId + 1));
     }
 
+    @Test
+    @Transactional
+    void getAllAttributeValuesByProductVariantIsEqualToSomething() throws Exception {
+        ProductVariant productVariant;
+        if (TestUtil.findAll(em, ProductVariant.class).isEmpty()) {
+            attributeValueRepository.saveAndFlush(attributeValue);
+            productVariant = ProductVariantResourceIT.createEntity();
+        } else {
+            productVariant = TestUtil.findAll(em, ProductVariant.class).get(0);
+        }
+        em.persist(productVariant);
+        em.flush();
+        attributeValue.addProductVariant(productVariant);
+        attributeValueRepository.saveAndFlush(attributeValue);
+        Long productVariantId = productVariant.getId();
+        // Get all the attributeValueList where productVariant equals to productVariantId
+        defaultAttributeValueShouldBeFound("productVariantId.equals=" + productVariantId);
+
+        // Get all the attributeValueList where productVariant equals to (productVariantId + 1)
+        defaultAttributeValueShouldNotBeFound("productVariantId.equals=" + (productVariantId + 1));
+    }
+
     private void defaultAttributeValueFiltering(String shouldBeFound, String shouldNotBeFound) throws Exception {
         defaultAttributeValueShouldBeFound(shouldBeFound);
         defaultAttributeValueShouldNotBeFound(shouldNotBeFound);
@@ -481,7 +504,7 @@ class AttributeValueResourceIT {
         AttributeValue partialUpdatedAttributeValue = new AttributeValue();
         partialUpdatedAttributeValue.setId(attributeValue.getId());
 
-        partialUpdatedAttributeValue.creatAt(UPDATED_CREAT_AT).name(UPDATED_NAME);
+        partialUpdatedAttributeValue.updateAt(UPDATED_UPDATE_AT);
 
         restAttributeValueMockMvc
             .perform(

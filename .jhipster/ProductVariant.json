@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20241221070640"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "creatAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "ProductVariant",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "attributeValue",
+      "otherEntityRelationshipName": "productVariant",
+      "relationshipName": "attributeValue",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

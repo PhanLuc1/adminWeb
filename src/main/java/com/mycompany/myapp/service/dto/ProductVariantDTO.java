@@ -1,16 +1,17 @@
 package com.mycompany.myapp.service.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * A DTO for the {@link com.mycompany.myapp.domain.AttributeValue} entity.
+ * A DTO for the {@link com.mycompany.myapp.domain.ProductVariant} entity.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class AttributeValueDTO implements Serializable {
+public class ProductVariantDTO implements Serializable {
 
     private Long id;
 
@@ -18,11 +19,9 @@ public class AttributeValueDTO implements Serializable {
 
     private Instant updateAt;
 
-    private String name;
+    private BigDecimal price;
 
-    private AttributeDTO attribute;
-
-    private Set<ProductVariantDTO> productVariants = new HashSet<>();
+    private Set<AttributeValueDTO> attributeValues = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -48,28 +47,20 @@ public class AttributeValueDTO implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public String getName() {
-        return name;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public AttributeDTO getAttribute() {
-        return attribute;
+    public Set<AttributeValueDTO> getAttributeValues() {
+        return attributeValues;
     }
 
-    public void setAttribute(AttributeDTO attribute) {
-        this.attribute = attribute;
-    }
-
-    public Set<ProductVariantDTO> getProductVariants() {
-        return productVariants;
-    }
-
-    public void setProductVariants(Set<ProductVariantDTO> productVariants) {
-        this.productVariants = productVariants;
+    public void setAttributeValues(Set<AttributeValueDTO> attributeValues) {
+        this.attributeValues = attributeValues;
     }
 
     @Override
@@ -77,15 +68,15 @@ public class AttributeValueDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AttributeValueDTO)) {
+        if (!(o instanceof ProductVariantDTO)) {
             return false;
         }
 
-        AttributeValueDTO attributeValueDTO = (AttributeValueDTO) o;
+        ProductVariantDTO productVariantDTO = (ProductVariantDTO) o;
         if (this.id == null) {
             return false;
         }
-        return Objects.equals(this.id, attributeValueDTO.id);
+        return Objects.equals(this.id, productVariantDTO.id);
     }
 
     @Override
@@ -96,13 +87,12 @@ public class AttributeValueDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "AttributeValueDTO{" +
+        return "ProductVariantDTO{" +
             "id=" + getId() +
             ", creatAt='" + getCreatAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
-            ", name='" + getName() + "'" +
-            ", attribute=" + getAttribute() +
-            ", productVariants=" + getProductVariants() +
+            ", price=" + getPrice() +
+            ", attributeValues=" + getAttributeValues() +
             "}";
     }
 }

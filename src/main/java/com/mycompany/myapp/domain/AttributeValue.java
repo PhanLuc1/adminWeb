@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A AttributeValue.
@@ -32,6 +34,10 @@ public class AttributeValue implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "attributeValues" }, allowSetters = true)
     private Attribute attribute;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "attributeValues")
+    @JsonIgnoreProperties(value = { "attributeValues" }, allowSetters = true)
+    private Set<ProductVariant> productVariants = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -97,6 +103,37 @@ public class AttributeValue implements Serializable {
 
     public AttributeValue attribute(Attribute attribute) {
         this.setAttribute(attribute);
+        return this;
+    }
+
+    public Set<ProductVariant> getProductVariants() {
+        return this.productVariants;
+    }
+
+    public void setProductVariants(Set<ProductVariant> productVariants) {
+        if (this.productVariants != null) {
+            this.productVariants.forEach(i -> i.removeAttributeValue(this));
+        }
+        if (productVariants != null) {
+            productVariants.forEach(i -> i.addAttributeValue(this));
+        }
+        this.productVariants = productVariants;
+    }
+
+    public AttributeValue productVariants(Set<ProductVariant> productVariants) {
+        this.setProductVariants(productVariants);
+        return this;
+    }
+
+    public AttributeValue addProductVariant(ProductVariant productVariant) {
+        this.productVariants.add(productVariant);
+        productVariant.getAttributeValues().add(this);
+        return this;
+    }
+
+    public AttributeValue removeProductVariant(ProductVariant productVariant) {
+        this.productVariants.remove(productVariant);
+        productVariant.getAttributeValues().remove(this);
         return this;
     }
 

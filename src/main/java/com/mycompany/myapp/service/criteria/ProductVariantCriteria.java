@@ -8,17 +8,17 @@ import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
 
 /**
- * Criteria class for the {@link com.mycompany.myapp.domain.AttributeValue} entity. This class is used
- * in {@link com.mycompany.myapp.web.rest.AttributeValueResource} to receive all the possible filtering options from
+ * Criteria class for the {@link com.mycompany.myapp.domain.ProductVariant} entity. This class is used
+ * in {@link com.mycompany.myapp.web.rest.ProductVariantResource} to receive all the possible filtering options from
  * the Http GET request parameters.
  * For example the following could be a valid request:
- * {@code /attribute-values?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
+ * {@code /product-variants?id.greaterThan=5&attr1.contains=something&attr2.specified=false}
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
 @ParameterObject
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class AttributeValueCriteria implements Serializable, Criteria {
+public class ProductVariantCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,29 +28,26 @@ public class AttributeValueCriteria implements Serializable, Criteria {
 
     private InstantFilter updateAt;
 
-    private StringFilter name;
+    private BigDecimalFilter price;
 
-    private LongFilter attributeId;
-
-    private LongFilter productVariantId;
+    private LongFilter attributeValueId;
 
     private Boolean distinct;
 
-    public AttributeValueCriteria() {}
+    public ProductVariantCriteria() {}
 
-    public AttributeValueCriteria(AttributeValueCriteria other) {
+    public ProductVariantCriteria(ProductVariantCriteria other) {
         this.id = other.optionalId().map(LongFilter::copy).orElse(null);
         this.creatAt = other.optionalCreatAt().map(InstantFilter::copy).orElse(null);
         this.updateAt = other.optionalUpdateAt().map(InstantFilter::copy).orElse(null);
-        this.name = other.optionalName().map(StringFilter::copy).orElse(null);
-        this.attributeId = other.optionalAttributeId().map(LongFilter::copy).orElse(null);
-        this.productVariantId = other.optionalProductVariantId().map(LongFilter::copy).orElse(null);
+        this.price = other.optionalPrice().map(BigDecimalFilter::copy).orElse(null);
+        this.attributeValueId = other.optionalAttributeValueId().map(LongFilter::copy).orElse(null);
         this.distinct = other.distinct;
     }
 
     @Override
-    public AttributeValueCriteria copy() {
-        return new AttributeValueCriteria(this);
+    public ProductVariantCriteria copy() {
+        return new ProductVariantCriteria(this);
     }
 
     public LongFilter getId() {
@@ -110,61 +107,42 @@ public class AttributeValueCriteria implements Serializable, Criteria {
         this.updateAt = updateAt;
     }
 
-    public StringFilter getName() {
-        return name;
+    public BigDecimalFilter getPrice() {
+        return price;
     }
 
-    public Optional<StringFilter> optionalName() {
-        return Optional.ofNullable(name);
+    public Optional<BigDecimalFilter> optionalPrice() {
+        return Optional.ofNullable(price);
     }
 
-    public StringFilter name() {
-        if (name == null) {
-            setName(new StringFilter());
+    public BigDecimalFilter price() {
+        if (price == null) {
+            setPrice(new BigDecimalFilter());
         }
-        return name;
+        return price;
     }
 
-    public void setName(StringFilter name) {
-        this.name = name;
+    public void setPrice(BigDecimalFilter price) {
+        this.price = price;
     }
 
-    public LongFilter getAttributeId() {
-        return attributeId;
+    public LongFilter getAttributeValueId() {
+        return attributeValueId;
     }
 
-    public Optional<LongFilter> optionalAttributeId() {
-        return Optional.ofNullable(attributeId);
+    public Optional<LongFilter> optionalAttributeValueId() {
+        return Optional.ofNullable(attributeValueId);
     }
 
-    public LongFilter attributeId() {
-        if (attributeId == null) {
-            setAttributeId(new LongFilter());
+    public LongFilter attributeValueId() {
+        if (attributeValueId == null) {
+            setAttributeValueId(new LongFilter());
         }
-        return attributeId;
+        return attributeValueId;
     }
 
-    public void setAttributeId(LongFilter attributeId) {
-        this.attributeId = attributeId;
-    }
-
-    public LongFilter getProductVariantId() {
-        return productVariantId;
-    }
-
-    public Optional<LongFilter> optionalProductVariantId() {
-        return Optional.ofNullable(productVariantId);
-    }
-
-    public LongFilter productVariantId() {
-        if (productVariantId == null) {
-            setProductVariantId(new LongFilter());
-        }
-        return productVariantId;
-    }
-
-    public void setProductVariantId(LongFilter productVariantId) {
-        this.productVariantId = productVariantId;
+    public void setAttributeValueId(LongFilter attributeValueId) {
+        this.attributeValueId = attributeValueId;
     }
 
     public Boolean getDistinct() {
@@ -194,33 +172,31 @@ public class AttributeValueCriteria implements Serializable, Criteria {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final AttributeValueCriteria that = (AttributeValueCriteria) o;
+        final ProductVariantCriteria that = (ProductVariantCriteria) o;
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(creatAt, that.creatAt) &&
             Objects.equals(updateAt, that.updateAt) &&
-            Objects.equals(name, that.name) &&
-            Objects.equals(attributeId, that.attributeId) &&
-            Objects.equals(productVariantId, that.productVariantId) &&
+            Objects.equals(price, that.price) &&
+            Objects.equals(attributeValueId, that.attributeValueId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, creatAt, updateAt, name, attributeId, productVariantId, distinct);
+        return Objects.hash(id, creatAt, updateAt, price, attributeValueId, distinct);
     }
 
     // prettier-ignore
     @Override
     public String toString() {
-        return "AttributeValueCriteria{" +
+        return "ProductVariantCriteria{" +
             optionalId().map(f -> "id=" + f + ", ").orElse("") +
             optionalCreatAt().map(f -> "creatAt=" + f + ", ").orElse("") +
             optionalUpdateAt().map(f -> "updateAt=" + f + ", ").orElse("") +
-            optionalName().map(f -> "name=" + f + ", ").orElse("") +
-            optionalAttributeId().map(f -> "attributeId=" + f + ", ").orElse("") +
-            optionalProductVariantId().map(f -> "productVariantId=" + f + ", ").orElse("") +
+            optionalPrice().map(f -> "price=" + f + ", ").orElse("") +
+            optionalAttributeValueId().map(f -> "attributeValueId=" + f + ", ").orElse("") +
             optionalDistinct().map(f -> "distinct=" + f + ", ").orElse("") +
         "}";
     }
